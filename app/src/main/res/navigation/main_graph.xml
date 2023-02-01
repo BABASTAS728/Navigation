@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/firFragment">
+
+    <fragment
+        android:id="@+id/firFragment"
+        android:name="com.example.navigation.FirFragment"
+        android:label="fragment_fir"
+        tools:layout="@layout/fragment_fir" >
+        <action
+            android:id="@+id/action_firFragment_to_secFragment"
+            app:destination="@id/secFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secFragment"
+        android:name="com.example.navigation.SecFragment"
+        android:label="fragment_sec"
+        tools:layout="@layout/fragment_sec" >
+        <action
+            android:id="@+id/action_secFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
+        <argument
+            android:name="fromFirstToSec"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.navigation.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third"
+        >
+
+    <argument
+        android:name="fromFirstToThird"
+        app:argType="integer"
+        android:defaultValue="0"
+        />
+
+        <argument
+            android:name="fromSecToThird"
+            app:argType="string"
+            android:defaultValue=""
+            />
+    </fragment>
+</navigation>
