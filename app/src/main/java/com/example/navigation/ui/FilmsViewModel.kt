@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.navigation.domain.Repository
 import com.example.navigation.domain.UiItem
+import com.example.navigation.domain.use_cases.GetLowRatingFilmsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +17,12 @@ class FilmsViewModel @Inject constructor(
     private val _liveData = MutableLiveData<List<UiItem>>()
     val liveData: LiveData<List<UiItem>> get() = _liveData
 
-    fun getData(){
+    fun getFilms(){
         _liveData.value = repository.getFilmsList()
+    }
+
+    fun getLowRatingFilms(){
+        val useCase = GetLowRatingFilmsUseCase(repository)
+        _liveData.value = useCase()
     }
 }

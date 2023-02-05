@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/firFragment">
+    app:startDestination="@id/filmsFragment">
 
     <fragment
-        android:id="@+id/firFragment"
+        android:id="@+id/filmsFragment"
         android:name="com.example.navigation.ui.FilmsFragment"
         android:label="fragment_fir"
-        tools:layout="@layout/fragment_film" >
+        tools:layout="@layout/fragment_films" >
         <action
-            android:id="@+id/action_firFragment_to_secFragment"
-            app:destination="@id/secFragment" />
+            android:id="@+id/action_filmsFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
+        <action
+            android:id="@+id/action_filmsFragment_to_lowRatingFilmsFragment"
+            app:destination="@id/lowRatingFilmsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/secFragment"
+        android:id="@+id/descriptionFragment"
         android:name="com.example.navigation.ui.DescriptionFragment"
         android:label="fragment_sec"
         tools:layout="@layout/fragment_description" >
@@ -29,5 +32,14 @@
             app:argType="string"
             android:defaultValue=""
             />
+    </fragment>
+    <fragment
+        android:id="@+id/lowRatingFilmsFragment"
+        android:name="com.example.navigation.ui.LowRatingFilmsFragment"
+        android:label="fragment_low_rating_films"
+        tools:layout="@layout/fragment_low_rating_films" >
+        <action
+            android:id="@+id/action_lowRatingFilmsFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
     </fragment>
 </navigation>

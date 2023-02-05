@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
 import com.example.navigation.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DescriptionFragment : Fragment() {
 
     private val args: DescriptionFragmentArgs by navArgs()
@@ -21,7 +23,7 @@ class DescriptionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val button = view.findViewById<TextView>(R.id.name)
-        button.text = args.name
+        view.findViewById<TextView>(R.id.name).text = args.name
+        view.findViewById<TextView>(R.id.description).text = args.description
     }
 }

@@ -9,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-
 abstract class DataModel {
     @Binds
     abstract fun getRepository(impl: RepositoryImpl): Repository
