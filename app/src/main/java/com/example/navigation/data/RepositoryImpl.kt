@@ -8,6 +8,6 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val service: Server,
     private val mapper: UiItemMapper
-): Repository {
-    override fun getFilmsList(): List<UiItem> = service.getResponse().map{mapper(it)}
+) : Repository {
+    override fun getFilmsList(): List<UiItem> = service.getResponse().map { mapper(it) }
 }

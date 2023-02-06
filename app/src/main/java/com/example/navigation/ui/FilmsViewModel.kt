@@ -12,16 +12,16 @@ import javax.inject.Inject
 @HiltViewModel
 class FilmsViewModel @Inject constructor(
     private val repository: Repository
-): ViewModel() {
+) : ViewModel() {
 
     private val _liveData = MutableLiveData<List<UiItem>>()
     val liveData: LiveData<List<UiItem>> get() = _liveData
 
-    fun getFilms(){
+    fun getFilms() {
         _liveData.value = repository.getFilmsList()
     }
 
-    fun getLowRatingFilms(){
+    fun getLowRatingFilms() {
         val useCase = GetLowRatingFilmsUseCase(repository)
         _liveData.value = useCase()
     }
