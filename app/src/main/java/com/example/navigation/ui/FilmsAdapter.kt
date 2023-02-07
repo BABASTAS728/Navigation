@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navigation.R
-import com.example.navigation.domain.UiItem
+import com.example.navigation.domain.models.UiItem
 
-class FilmsAdapter(private val list: List<UiItem>, private val itemCLick: (String, String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FilmsAdapter(private val list: List<UiItem>, private val itemCLick: (String, String, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {

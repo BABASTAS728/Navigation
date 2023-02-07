@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_filmsFragment_to_lowRatingFilmsFragment"
             app:destination="@id/lowRatingFilmsFragment" />
+        <action
+            android:id="@+id/action_filmsFragment_to_likeFilmsFragment"
+            app:destination="@id/likeFilmsFragment" />
     </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
@@ -32,6 +35,12 @@
             app:argType="string"
             android:defaultValue=""
             />
+
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
     </fragment>
     <fragment
         android:id="@+id/lowRatingFilmsFragment"
@@ -40,6 +49,15 @@
         tools:layout="@layout/fragment_low_rating_films" >
         <action
             android:id="@+id/action_lowRatingFilmsFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likeFilmsFragment"
+        android:name="com.example.navigation.ui.LikeFilmsFragment"
+        android:label="fragment_like_films"
+        tools:layout="@layout/fragment_like_films" >
+        <action
+            android:id="@+id/action_likeFilmsFragment_to_descriptionFragment"
             app:destination="@id/descriptionFragment" />
     </fragment>
 </navigation>

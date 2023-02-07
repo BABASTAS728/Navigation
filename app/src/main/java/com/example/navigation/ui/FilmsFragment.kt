@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,12 +30,13 @@ class FilmsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recycler = view.findViewById<RecyclerView>(R.id.recycler)
-        val itemClick: (String, String) -> Unit = { name, description ->
-            val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description)
+        val itemClick: (String, String, Int) -> Unit = { name, description, id ->
+            val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description, id)
             findNavController().navigate(action)
         }
 
         viewModel.liveData.observe(viewLifecycleOwner) {
+            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = false
             val adapter = FilmsAdapter(it, itemClick)
             recycler.adapter = adapter
             recycler.layoutManager =
@@ -44,6 +48,20 @@ class FilmsFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener{
             val action = FilmsFragmentDirections.actionFilmsFragmentToLowRatingFilmsFragment()
+            findNavController().navigate(action)
+        }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), getString(it), Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner){
+            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = true
+        }
+
+        val likeButton = view.findViewById<Button>(R.id.checkLikeFilmsBtn)
+        likeButton.setOnClickListener{
+            val action = FilmsFragmentDirections.actionFilmsFragmentToLikeFilmsFragment()
             findNavController().navigate(action)
         }
     }
