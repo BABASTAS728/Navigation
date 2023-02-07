@@ -14,11 +14,12 @@ class Server @Inject constructor() {
         var user = User(9, mutableListOf())
 
         suspend fun getUser(): User {
+            delay(3000)
             return user
         }
 
         suspend fun getFilmsById(filmsId: List<Int>): List<UiItem.Film> {
-
+            delay(3000)
             val films: MutableList<UiItem.Film> = mutableListOf()
             for (element in filmsId) {
                 when (element) {

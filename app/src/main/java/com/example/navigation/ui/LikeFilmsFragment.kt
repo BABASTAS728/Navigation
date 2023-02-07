@@ -37,7 +37,7 @@ class LikeFilmsFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val likeFilms = Server.getFilmsById(Server.getUser().likeFilms)
             val adapter = FilmsAdapter(likeFilms, itemClick)
             recycler.adapter = adapter
