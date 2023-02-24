@@ -1,4 +1,4 @@
-package com.example.navigation.domain
+package com.example.navigation.domain.models
 
 sealed class UiItem{
     data class Film(
@@ -6,7 +6,8 @@ sealed class UiItem{
         val name: String,
         val hasOscar: Boolean,
         val rating: Double,
-        val description: String
+        val description: String,
+        val id: Int
     ) : UiItem()
 
     data class Header(val tittle: String) : UiItem()
