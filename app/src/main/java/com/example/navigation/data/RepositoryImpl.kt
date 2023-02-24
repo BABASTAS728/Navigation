@@ -24,4 +24,8 @@ class RepositoryImpl @Inject constructor(
         }
         return result
     }
+
+    override suspend fun addFilm(id: Int) {
+        Server.getUser().likeFilms.add(id)
+    }
 }

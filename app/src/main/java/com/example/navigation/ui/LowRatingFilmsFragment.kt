@@ -10,22 +10,26 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navigation.R
+import com.example.navigation.databinding.FragmentLowRatingFilmsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LowRatingFilmsFragment : Fragment() {
 
     private val viewModel by viewModels<FilmsViewModel>()
+    private var _binding: FragmentLowRatingFilmsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_low_rating_films, container, false)
+        _binding = FragmentLowRatingFilmsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler2)
+        val recycler = binding.recycler2
         val itemClick: (String, String, Int) -> Unit = { name, description, id ->
             val action =
                 LowRatingFilmsFragmentDirections.actionLowRatingFilmsFragmentToDescriptionFragment(name, description, id)

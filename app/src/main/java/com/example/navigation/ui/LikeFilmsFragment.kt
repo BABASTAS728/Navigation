@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navigation.R
 import com.example.navigation.data.Server
+import com.example.navigation.databinding.FragmentLikeFilmsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,15 +19,18 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LikeFilmsFragment : Fragment() {
 
+    private var _binding: FragmentLikeFilmsBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_like_films, container, false)
+       _binding = FragmentLikeFilmsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler3)
+        val recycler = binding.recycler3
         val itemClick: (String, String, Int) -> Unit = { name, description, id ->
             val action =
                 LikeFilmsFragmentDirections.actionLikeFilmsFragmentToDescriptionFragment(
@@ -48,5 +52,10 @@ class LikeFilmsFragment : Fragment() {
                     false
                 )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

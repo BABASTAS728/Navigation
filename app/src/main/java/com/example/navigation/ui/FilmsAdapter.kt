@@ -4,21 +4,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navigation.R
+import com.example.navigation.databinding.FilmLayoutBinding
+import com.example.navigation.databinding.HeaderLayoutBinding
 import com.example.navigation.domain.models.UiItem
 
-class FilmsAdapter(private val list: List<UiItem>, private val itemCLick: (String, String, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FilmsAdapter(
+    private val list: List<UiItem>,
+    private val itemCLick: (String, String, Int) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             FILM_TYPE -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.film_layout, parent, false)
-                FilmViewHolder(view, itemCLick)
+                val binding =
+                    FilmLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                FilmViewHolder(binding, itemCLick)
             }
             TITLE_TYPE -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.header_layout, parent, false)
-                HeaderViewHolder(view)
+                val binding =
+                    HeaderLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                HeaderViewHolder(binding)
             }
             else -> throw Exception()
         }

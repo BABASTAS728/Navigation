@@ -14,29 +14,32 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navigation.R
+import com.example.navigation.databinding.FragmentFilmsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FilmsFragment : Fragment() {
 
     private val viewModel by viewModels<FilmsViewModel>()
-
+    private var _binding: FragmentFilmsBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_films, container, false)
+        _binding = FragmentFilmsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler)
+        val recycler = binding.recycler
         val itemClick: (String, String, Int) -> Unit = { name, description, id ->
             val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description, id)
             findNavController().navigate(action)
         }
 
         viewModel.liveData.observe(viewLifecycleOwner) {
-            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = false
+            binding.progressBar.isVisible = false
             val adapter = FilmsAdapter(it, itemClick)
             recycler.adapter = adapter
             recycler.layoutManager =
@@ -45,8 +48,7 @@ class FilmsFragment : Fragment() {
 
         viewModel.getFilms()
 
-        val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener{
+        binding.button.setOnClickListener{
             val action = FilmsFragmentDirections.actionFilmsFragmentToLowRatingFilmsFragment()
             findNavController().navigate(action)
         }
@@ -56,13 +58,17 @@ class FilmsFragment : Fragment() {
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner){
-            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = true
+            binding.progressBar.isVisible = true
         }
 
-        val likeButton = view.findViewById<Button>(R.id.checkLikeFilmsBtn)
-        likeButton.setOnClickListener{
+        binding.checkLikeFilmsBtn.setOnClickListener{
             val action = FilmsFragmentDirections.actionFilmsFragmentToLikeFilmsFragment()
             findNavController().navigate(action)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

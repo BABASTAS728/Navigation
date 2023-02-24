@@ -48,4 +48,10 @@ class FilmsViewModel @Inject constructor(
             _liveData.value = useCase.invoke()
         }
     }
+
+    fun addFilm(id: Int){
+        viewModelScope.launch {
+            repository.addFilm(id)
+        }
+    }
 }

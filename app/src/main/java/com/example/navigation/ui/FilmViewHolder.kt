@@ -1,28 +1,23 @@
 package com.example.navigation.ui
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.navigation.R
+import com.example.navigation.databinding.FilmLayoutBinding
 import com.example.navigation.domain.models.UiItem
 
-class FilmViewHolder(itemView: View, private val itemClick: (String, String, Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class FilmViewHolder(
+    private val binding: FilmLayoutBinding,
+    private val itemClick: (String, String, Int) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
     fun bind(film: UiItem.Film) {
-        val poster = itemView.findViewById<ImageView>(R.id.poster)
-        val name = itemView.findViewById<TextView>(R.id.name)
-        val hasOscar = itemView.findViewById<ImageView>(R.id.oscar)
-        val rating = itemView.findViewById<TextView>(R.id.rating)
-
         Glide
             .with(itemView.context)
             .load(film.poster)
-            .into(poster)
-        name.text = film.name
-        hasOscar.isVisible = film.hasOscar
-        rating.text = film.rating.toString()
+            .into(binding.poster)
+        binding.name.text = film.name
+        binding.oscar.isVisible = film.hasOscar
+        binding.rating.text = film.rating.toString()
 
         itemView.setOnClickListener {
             itemClick.invoke(film.name, film.description, film.id)
